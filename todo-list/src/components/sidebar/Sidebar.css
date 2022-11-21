@@ -1,0 +1,48 @@
+.selected, .unselected {
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: rgb(161, 165, 180);
+    height: 60px;
+    width: 250px;
+    cursor: pointer;
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 1fr 22px;
+    justify-items: stretch;
+}
+
+.unselected {
+    background-color: rgb(255, 255, 255);
+}
+
+.new-task-btn {
+    border: 3px solid;
+    border-radius: 5px;
+    background-color: rgb(143, 141, 141);
+    height: 60px;
+    width: 200px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 20px;
+}
+
+.changed {
+    font-size: 12px;
+}
+
+.trash-btn, .checkbox-input {
+    border: none;
+    background-color: transparent;
+    visibility: hidden;
+}
+
+.selected > .trash-btn,
+.selected > .checkbox-input {
+    visibility: visible;
+}
+
+.trash-logo {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}

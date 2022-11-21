@@ -1,0 +1,31 @@
+.hero-item {
+    text-align: left;
+}
+
+.hero-flexbox {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.hero-name {
+    font-size: 1.5em;
+}
+
+.hero-img {
+    width: 450px;
+    height: 450px;
+}
+
+.hero-img:hover {
+    box-shadow: 15px 5px 5px red;
+    cursor: pointer;
+}
+
+.hero-flexbox > ul {
+    list-style-type: none;
+}
+
+.hero-flexbox ul li {
+    box-shadow: 5px 2px 2px grey;
+}

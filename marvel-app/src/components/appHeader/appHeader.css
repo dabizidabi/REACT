@@ -1,0 +1,35 @@
+.app-header {
+    text-align: center;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.marvel-logo {
+    width: 300px;
+    display: inline;
+}
+
+.header-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 0;
+}
+
+.header-links li  {
+    list-style: none;
+}
+
+.header-links li a {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.header-links li a:hover {
+    color: red;
+}

@@ -1,6 +1,6 @@
 const _public_api_key = "9096b9c167f28e2a4eb1cc0f3bfdaf09";
 const _marvel_url = "https://gateway.marvel.com:443/v1/public/";
-const _comicsLimit = 10;
+const _comicsLimit = 1;
 const _heroesLimit = 5;
 const _offset = 600;
 

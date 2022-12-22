@@ -1,49 +1,20 @@
 import "./comicsList.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getComics } from "../services/marvel";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
+import { fetchComics, fetchNewComics } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Comics = ({ onSelectComic }) => {
-  const [comics, setComics] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [offset, setOffset] = useState(600);
-  const [loadingNewComics, setLoadingNewComics] = useState(false);
-  const [comicsEnded, setComicsEnded] = useState(false);
-
-  const onRequest = (newComics) => {
-    setComicsEnded(newComics.length < 10);
-    setComics((prevComics) => [...prevComics, ...newComics]);
-  };
-
-  const getNewComics = (offset) => {
-    setLoadingNewComics(true);
-    getComics(offset)
-      .then((data) => {
-        onRequest(data);
-        setError(false);
-        setOffset((prevOffset) => prevOffset + 10);
-        setLoadingNewComics(false);
-      })
-      .catch(onError);
-  };
+  const dispatch = useDispatch();
+  const { comics, loading, error, loadingNewComics, comicsEnded, offset } =
+    useSelector((state) => state.comicsListReducer);
+  console.log("renderrrr");
 
   useEffect(() => {
-    getComics()
-      .then((data) => {
-        setError(false);
-        setComics(data);
-        setOffset((prevOffset) => prevOffset + 10);
-        setLoading(false);
-      })
-      .catch(onError);
+    dispatch(fetchComics(getComics));
   }, []);
-
-  const onError = () => {
-    setLoading(false);
-    setError(true);
-  };
 
   const comicsList = comics.map((comic) => {
     return (
@@ -66,7 +37,7 @@ const Comics = ({ onSelectComic }) => {
       <div className="comics-flexbox">{comicsList}</div>
       <button
         disabled={loadingNewComics}
-        onClick={() => getNewComics(offset)}
+        onClick={() => dispatch(fetchNewComics(getComics))}
         style={{
           display: comicsEnded || loadingNewComics ? "none" : "inline-block",
         }}

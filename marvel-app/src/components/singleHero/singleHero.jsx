@@ -29,7 +29,6 @@ const SingleHero = () => {
   if (error) return <Error />;
 
   const renderHero = hero.map((item) => {
-    console.log(item.urls);
     return (
       <div key={item.id} className="single-hero-box">
         <h3 className="hero-title">{item.name}</h3>

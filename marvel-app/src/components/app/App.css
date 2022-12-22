@@ -1,0 +1,35 @@
+* {
+    font-family: Roboto, Times, serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+main {
+    background-image: url("../../assets/img/main-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position-x: center;
+    margin: 160px 40px 20px 40px;
+    position: absolute;
+    left: 0; 
+    right: 0;
+    text-align: center;
+}
+
+.comics-area {
+    float: left;
+    width: 65%;
+    text-align: center;
+}
+
+.comics-sidebar {
+    float: right;
+    width: 35%;
+    height: auto;
+    position: fixed;
+    top: 155px;
+    bottom: 20px;
+    right: 0;
+    margin-bottom: 16px;
+}

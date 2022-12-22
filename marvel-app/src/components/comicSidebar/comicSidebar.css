@@ -1,0 +1,30 @@
+.comic-info {
+    background-color: rgb(24, 24, 24);
+    color: white;
+    border-radius: 5px;
+    margin: 20px;
+    text-align: left;
+    width: 70%;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+
+.comic-info li {
+    list-style: none;
+}
+
+.comic-info img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.comic-info span {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.comic-info a {
+    text-decoration: underline;
+    color: white;
+}

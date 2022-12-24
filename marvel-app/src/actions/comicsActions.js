@@ -1,47 +1,51 @@
-export const fetchComics = (request) => (dispatch) => {
+const FETCHING_COMICS = "FETCHING_COMICS";
+const COMICS_FETCHED = "COMICS_FETCHED";
+const FETCHING_NEW_COMICS = "FETCHING_NEW_COMICS";
+const NEW_COMICS_FETCHED = "NEW_COMICS_FETCHED";
+const ERROR = "ERROR";
+
+export const fetchComics = (fetchFunc) => (dispatch) => {
   dispatch(fetchingComics());
-  request()
+  fetchFunc()
     .then((data) => dispatch(comicsFetched(data)))
     .catch(() => dispatch(onError()));
 };
 
-export const fetchNewComics = (request) => (dispatch) => {
+export const fetchNewComics = (fetchfunc) => (dispatch) => {
   dispatch(fetchingNewComics());
-  request()
+  fetchfunc()
     .then((data) => dispatch(newComicsFetched(data)))
     .catch(() => dispatch(onError()));
 };
 
 export const fetchingComics = () => {
-  console.log("fetchingComics");
   return {
-    type: "FETCHING_COMICS",
+    type: FETCHING_COMICS,
   };
 };
 
 export const comicsFetched = (comics) => {
-  console.log("comicsFetched");
   return {
-    type: "COMICS_FETCHED",
+    type: COMICS_FETCHED,
     payload: { comics, offset: 10 },
   };
 };
 
 export const fetchingNewComics = () => {
   return {
-    type: "FETCHING_NEW_COMICS",
+    type: FETCHING_NEW_COMICS,
   };
 };
 
 export const newComicsFetched = (comics) => {
   return {
-    type: "NEW_COMICS_FETCHED",
+    type: NEW_COMICS_FETCHED,
     payload: { comics, offset: 10 },
   };
 };
 
 export const onError = () => {
   return {
-    type: "ERROR",
+    type: ERROR,
   };
 };

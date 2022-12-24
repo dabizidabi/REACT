@@ -1,48 +1,22 @@
 import "./heroesList.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
 import { getHeroes } from "../services/marvel";
 import InfiniteScroll from "react-infinite-scroller";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHeroes, fetchNewHeroes } from "../../actions/heroesActions";
 
-const HeroesList = ({ onSelectHero }) => {
-  const [heroes, setHeroes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [offset, setOffset] = useState(600);
-  const [hasMoreHeroes, setHasMoreHeroes] = useState(true);
-
-  const onRequest = (newHeroes) => {
-    setHasMoreHeroes(newHeroes.length < 5 ? false : true);
-    setHeroes((prevHeroes) => [...prevHeroes, ...newHeroes]);
-  };
-
-  const loadNewHeroes = (offset) => {
-    getHeroes(offset)
-      .then((data) => {
-        setError(false);
-        onRequest(data);
-        setOffset((prevOffset) => prevOffset + 5);
-      })
-      .catch(onError);
-  };
+const HeroesList = () => {
+  const dispatch = useDispatch();
+  const { heroes, loading, error, hasMoreHeroes, offset } = useSelector(
+    (state) => state.heroesReducer,
+  );
 
   useEffect(() => {
-    getHeroes()
-      .then((data) => {
-        setError(false);
-        setHeroes(data);
-        setOffset((prevOffset) => prevOffset + 5);
-        setLoading(false);
-      })
-      .catch(onError);
+    dispatch(fetchHeroes(getHeroes));
   }, []);
-
-  const onError = () => {
-    setLoading(false);
-    setError(true);
-  };
 
   const renderHeroes = heroes.map((hero) => {
     return (
@@ -66,10 +40,11 @@ const HeroesList = ({ onSelectHero }) => {
 
   if (loading) return <Spinner />;
   if (error) return <Error />;
+  console.log(hasMoreHeroes);
 
   return (
     <InfiniteScroll
-      loadMore={() => loadNewHeroes(offset)}
+      loadMore={() => dispatch(fetchNewHeroes(() => getHeroes(offset)))}
       hasMore={hasMoreHeroes}
       loader={<Spinner key={0} />}
     >

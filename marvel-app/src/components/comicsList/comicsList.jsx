@@ -1,16 +1,15 @@
 import "./comicsList.css";
 import { useEffect } from "react";
-import { getComics } from "../services/marvel";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
-import { fetchComics, fetchNewComics } from "../../actions";
+import { fetchComics, fetchNewComics } from "../../actions/comicsActions";
 import { useDispatch, useSelector } from "react-redux";
+import { getComics } from "../services/marvel";
 
 const Comics = ({ onSelectComic }) => {
   const dispatch = useDispatch();
   const { comics, loading, error, loadingNewComics, comicsEnded, offset } =
-    useSelector((state) => state.comicsListReducer);
-  console.log("renderrrr");
+    useSelector((state) => state.comicsReducer);
 
   useEffect(() => {
     dispatch(fetchComics(getComics));
@@ -37,7 +36,7 @@ const Comics = ({ onSelectComic }) => {
       <div className="comics-flexbox">{comicsList}</div>
       <button
         disabled={loadingNewComics}
-        onClick={() => dispatch(fetchNewComics(getComics))}
+        onClick={() => dispatch(fetchNewComics(() => getComics(offset)))}
         style={{
           display: comicsEnded || loadingNewComics ? "none" : "inline-block",
         }}

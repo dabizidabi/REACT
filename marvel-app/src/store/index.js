@@ -1,14 +1,11 @@
-import { createStore, applyMiddleware, combineReducers, compose } from "redux";
-import ReduxThunk from "redux-thunk";
-import comicsListReducer from "../reducers/comicsListReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import comicsReducer from "../reducers/comicsReducer";
+import heroesReducer from "../reducers/heroesReducer";
 
-const store = createStore(
-  combineReducers({ comicsListReducer }),
-  compose(
-    applyMiddleware(ReduxThunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
-);
+const store = configureStore({
+  reducer: { comicsReducer, heroesReducer },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  devTools: process.env.NODE_ENV !== "production",
+});
 
 export default store;

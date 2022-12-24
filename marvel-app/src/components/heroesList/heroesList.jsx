@@ -6,7 +6,7 @@ import { getHeroes } from "../services/marvel";
 import InfiniteScroll from "react-infinite-scroller";
 import { Link } from "react-router-dom";
 
-const HeroesList = ({ onSelectHero }) => {
+const HeroesList = () => {
   const [heroes, setHeroes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -14,7 +14,7 @@ const HeroesList = ({ onSelectHero }) => {
   const [hasMoreHeroes, setHasMoreHeroes] = useState(true);
 
   const onRequest = (newHeroes) => {
-    setHasMoreHeroes(newHeroes.length < 5 ? false : true);
+    setHasMoreHeroes(newHeroes.length >= 5);
     setHeroes((prevHeroes) => [...prevHeroes, ...newHeroes]);
   };
 

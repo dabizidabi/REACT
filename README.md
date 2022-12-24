@@ -1,0 +1,4 @@
+- chat-app (project with React & Firebase integration)
+- hooks-templ (practice writing hooks)
+- marvel-app (project on React with Marvel-api integration (redux brunch with Redux implementation))
+- todo-list (simple project with React)

@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import comicsReducer from "../reducers/comicsReducer";
-import heroesReducer from "../reducers/heroesReducer";
+import comics from "../reducers/comics";
+import heroes from "../reducers/heroes";
+import singleComic from "../reducers/singleComic";
+import singleHero from "../reducers/singleHero";
 
 const store = configureStore({
-  reducer: { comicsReducer, heroesReducer },
+  reducer: { comics, heroes, singleComic, singleHero },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== "production",
 });

@@ -4,27 +4,18 @@ import { useEffect, useState } from "react";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
 import { getHero } from "../services/marvel";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHero } from "../../actions/singleHero";
 
 const SingleHero = () => {
   const { heroId } = useParams();
-  const [hero, setHero] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
+  const { hero, loading, error } = useSelector((state) => state.singleHero);
 
   useEffect(() => {
-    getHero(heroId)
-      .then((data) => {
-        setError(false);
-        setHero(data);
-        setLoading(false);
-      })
-      .catch(onError);
+    dispatch(fetchHero(() => getHero(heroId)));
   }, [heroId]);
 
-  const onError = () => {
-    setLoading(false);
-    setError(true);
-  };
   if (loading) return <Spinner />;
   if (error) return <Error />;
 
@@ -37,7 +28,7 @@ const SingleHero = () => {
           {item.urls.map((url, i) => {
             return (
               <li key={url.url}>
-                <a href={url.url}>{`${
+                <a href={url.url} target="_blank">{`${
                   i + 1
                 }. ${url.type.toUpperCase()}-url`}</a>
               </li>

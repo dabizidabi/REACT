@@ -30,7 +30,6 @@ export const heroesFetched = (heroes) => {
 };
 
 export const newHeroesFetched = (heroes) => {
-  console.log(heroes.length);
   return {
     type: NEW_HEROES_FETCHED,
     payload: { heroes, offset: 5 },

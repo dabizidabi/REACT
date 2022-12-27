@@ -2,14 +2,15 @@ import "./comicsList.css";
 import { useEffect } from "react";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
-import { fetchComics, fetchNewComics } from "../../actions/comicsActions";
+import { fetchComics, fetchNewComics } from "../../actions/comics";
+import { getComicId } from "../../actions/singleComic";
 import { useDispatch, useSelector } from "react-redux";
 import { getComics } from "../services/marvel";
 
-const Comics = ({ onSelectComic }) => {
+const Comics = () => {
   const dispatch = useDispatch();
   const { comics, loading, error, loadingNewComics, comicsEnded, offset } =
-    useSelector((state) => state.comicsReducer);
+    useSelector((state) => state.comics);
 
   useEffect(() => {
     dispatch(fetchComics(getComics));
@@ -19,7 +20,7 @@ const Comics = ({ onSelectComic }) => {
     return (
       <div
         key={comic.id}
-        onClick={() => onSelectComic(comic.id)}
+        onClick={() => dispatch(getComicId(comic.id))}
         className="comic-box"
       >
         <img src={comic.img} alt="comic-image" className="comic-img" />

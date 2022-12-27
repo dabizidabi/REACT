@@ -1,42 +1,35 @@
 const initState = {
-  comics: [],
+  heroes: [],
   loading: true,
   error: false,
   offset: 600,
-  loadingNewComics: false,
-  comicsEnded: false,
+  hasMoreHeroes: true,
 };
 
-const comicsReducer = (state = initState, action) => {
+const heroes = (state = initState, action) => {
   switch (action.type) {
-    case "FETCHING_COMICS":
+    case "FETCHING_HEROES":
       return {
         ...state,
         loading: true,
         error: false,
       };
-    case "COMICS_FETCHED":
+    case "HEROES_FETCHED":
       return {
         ...state,
         loading: false,
         error: false,
-        comics: action.payload.comics,
+        heroes: action.payload.heroes,
         offset: state.offset + action.payload.offset,
       };
-    case "FETCHING_NEW_COMICS":
+    case "NEW_HEROES_FETCHED":
       return {
         ...state,
-        loadingNewComics: true,
+        loading: false,
         error: false,
-      };
-    case "NEW_COMICS_FETCHED":
-      return {
-        ...state,
-        error: false,
-        loadingNewComics: false,
-        comics: [...state.comics, ...action.payload.comics],
+        heroes: [...state.heroes, ...action.payload.heroes],
         offset: state.offset + action.payload.offset,
-        comicsEnded: action.payload.comics.length < 10,
+        hasMoreHeroes: action.payload.heroes.length >= 5,
       };
     case "ERROR":
       return {
@@ -49,4 +42,4 @@ const comicsReducer = (state = initState, action) => {
   }
 };
 
-export default comicsReducer;
+export default heroes;

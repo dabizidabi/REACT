@@ -1,48 +1,30 @@
 import "./comicSidebar.css";
 import { getSingleComic } from "../services/marvel";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchComic, setInitState } from "../../actions/singleComic";
 
-const ComicSidebar = ({ comicId }) => {
-  const [comic, setComic] = useState({
-    comicObj: [{}],
-    loading: false,
-    error: false,
-  });
+const ComicSidebar = () => {
+  const dispatch = useDispatch();
+  const { comic, loading, error, comicId } = useSelector(
+    (state) => state.singleComic,
+  );
 
   useEffect(() => {
     if (comicId) {
-      setComic({
-        ...comic,
-        loading: true,
-        error: false,
-      });
-
-      getSingleComic(comicId)
-        .then((data) => onComicLoaded(data))
-        .catch(onError);
+      dispatch(fetchComic(() => getSingleComic(comicId)));
     }
   }, [comicId]);
 
-  const onComicLoaded = (data) => {
-    setComic({
-      ...comic,
-      loading: false,
-      comicObj: data,
-    });
-  };
+  useEffect(() => {
+    return () => {
+      dispatch(setInitState());
+    };
+  }, []);
 
-  const onError = () => {
-    setComic({
-      ...comic,
-      loading: false,
-      error: true,
-    });
-  };
-
-  const { loading, error } = comic;
-  const { description, img, format, creators, url, title } = comic.comicObj[0];
+  const { description, img, format, creators, url, title } = comic[0];
   const creatorsNames = creators?.items.map((creator) => creator.name + "; ");
 
   if (error) return <Error />;

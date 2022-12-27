@@ -6,12 +6,12 @@ import { getHeroes } from "../services/marvel";
 import InfiniteScroll from "react-infinite-scroller";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHeroes, fetchNewHeroes } from "../../actions/heroesActions";
+import { fetchHeroes, fetchNewHeroes } from "../../actions/heroes";
 
 const HeroesList = () => {
   const dispatch = useDispatch();
   const { heroes, loading, error, hasMoreHeroes, offset } = useSelector(
-    (state) => state.heroesReducer,
+    (state) => state.heroes,
   );
 
   useEffect(() => {
@@ -40,7 +40,6 @@ const HeroesList = () => {
 
   if (loading) return <Spinner />;
   if (error) return <Error />;
-  console.log(hasMoreHeroes);
 
   return (
     <InfiniteScroll

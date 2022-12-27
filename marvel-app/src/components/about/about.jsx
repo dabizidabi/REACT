@@ -22,8 +22,10 @@ const About = () => {
       <ul>
         {links.map((link) => {
           return (
-            <li>
-              <a href={link.href}>{link.name}</a>
+            <li key={link.name}>
+              <a href={link.href} target="_blank">
+                {link.name}
+              </a>
             </li>
           );
         })}

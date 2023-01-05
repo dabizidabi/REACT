@@ -1,10 +1,17 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine as dev
 
 WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
-RUN npm i
+EXPOSE 3050
+CMD npm run dev
+
+FROM node:18-alpine as builder
+WORKDIR /app
+COPY --from=dev /app /app/
 RUN npm run build
 
-FROM nginx:1.23-alpine
+FROM nginx:1.23-alpine as prod
 COPY --from=builder /app/dist /usr/share/nginx/html
 RUN nginx -t

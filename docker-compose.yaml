@@ -1,11 +1,15 @@
 version: "3.9"
 services:
-  chat-app:
+  chat-app: #docker run -it -p 3050:3050 -v ${PWD}:/app -w /app chat-app:1.0.0 /bin/sh
     container_name: chat-app
     image: chat-app:1.0.0
     build:
       context: ./chat-app
       target: dev
+    working_dir: /app
+    entrypoint: /bin/sh
+    stdin_open: true
+    tty: true
     volumes:
     - ./chat-app/:/app/
     ports:
@@ -16,6 +20,10 @@ services:
     build:
       context: ./marvel-app
       target: dev
+    working_dir: /app
+    entrypoint: /bin/sh
+    stdin_open: true
+    tty: true
     volumes:
     - ./marvel-app/:/app/
     ports:

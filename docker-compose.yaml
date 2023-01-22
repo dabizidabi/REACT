@@ -28,3 +28,6 @@ services:
     - ./marvel-app/:/app/
     ports:
       - 3051:3051
+
+#docker-compose build
+#docker-compose up ?-d ?marvel-app

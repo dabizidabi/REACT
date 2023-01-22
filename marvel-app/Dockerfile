@@ -5,7 +5,6 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 EXPOSE 3051
-CMD npm run dev
 
 FROM node:18-alpine as builder
 WORKDIR /app

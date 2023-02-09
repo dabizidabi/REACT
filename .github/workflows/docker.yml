@@ -1,0 +1,23 @@
+name: Docker build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: docker build chat-app
+      run: |
+        docker build ./chat-app -t dabizidabi/chat-app:latest -t dabizidabi/chat-app:$GITHUB_SHA
+    - name: docker build marvel-app
+      run: |
+        docker build ./marvel-app -t dabizidabi/marvel-app:latest -t dabizidabi/marvel-app:$GITHUB_SHA
+    - name: docker login & push images
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USER --password-stdin
+        docker push -a dabizidabi/chat-app
+        docker push -a dabizidabi/marvel-app
